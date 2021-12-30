@@ -32,3 +32,20 @@ spec:
         image: ${CICD_IMAGE}:${CICD_EXECUTION_SEQUENCE}
         ports:
         - containerPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  #namespace: php
+  name: php-ingress
+  annotations:
+    allow.http: "false"
+spec:
+  rules:
+  - host: php.rancher.smarttbet.com.br
+    http:
+      paths:
+        - path: /
+          backend:
+            serviceName: php-service
+            servicePort: 80
